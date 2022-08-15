@@ -87,7 +87,7 @@ const actions = {
 	getContacts: async ({ state, commit }) => {
 		let header = headers(state.token);
 
-		return await axios.get(`${process.env.VUE_APP_BASE_URL}/contact`, {headers: header})
+		return await axios.get(`${process.env.VUE_APP_BASE_URL}/contacts`, {headers: header})
 			.then( (response) => {
 				console.log("Get contact getContacts", response.data);
 				commit("getContacts", response.data);
