@@ -1,0 +1,60 @@
+{
+	"name": "calipsa-test-frontend",
+	"version": "1.0.0",
+	"description": "Gmail signin and signup using vue",
+	"main": "index.js",
+	"private": true,
+	"scripts": {
+		"dev": "vue-cli-service serve",
+		"build": "vue-cli-service build",
+		"lint": "vue-cli-service lint",
+		"test": "jest --watchAll"
+	},
+	"author": "Amitesh Singh",
+	"license": "ISC",
+	"git repository": "https://github.com/amitesh786",
+	"dependencies": {
+		"@vue/cli-plugin-unit-jest": "^4.5.8",
+		"@vue/test-utils": "^1.1.0",
+		"axios": "^0.21.2",
+		"bootstrap": "^4.6.0",
+		"bootstrap-vue": "^2.21.2",
+		"core-js": "^3.6.5",
+		"es6-promise": "^4.2.8",
+		"link-prevue": "^1.2.0",
+		"vue": "^2.6.12",
+		"vue-axios": "^2.1.5",
+		"vue-router": "^3.5.1",
+		"vuelidate": "^0.7.5",
+		"vuex": "^3.6.2",
+		"vuex-persistedstate": "^3.1.0"
+	},
+	"devDependencies": {
+		"@vue/cli-plugin-babel": "~4.5.0",
+		"@vue/cli-plugin-eslint": "~4.5.0",
+		"@vue/cli-service": "~4.5.0",
+		"babel-eslint": "^10.1.0",
+		"eslint": "^6.7.2",
+		"eslint-plugin-vue": "^6.2.2",
+		"vue-template-compiler": "^2.6.11"
+	},
+	"eslintConfig": {
+		"root": true,
+		"env": {
+			"node": true
+		},
+		"extends": [
+			"plugin:vue/essential",
+			"eslint:recommended"
+		],
+		"parserOptions": {
+			"parser": "babel-eslint"
+		},
+		"rules": {}
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	]
+}
