@@ -6,7 +6,9 @@
 	"scripts": {
 		"start": "node src/index.js",
 		"dev": "nodemon src/index.js",
-		"test": "jest --watchAll"
+		"test": "jest --watchAll",
+		"worker": "node src/index.js",
+		"web": "npm run start"
 	},
 	"author": "amitesh.jy.786@gmail.com",
 	"keywords": [

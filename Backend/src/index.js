@@ -12,8 +12,13 @@ const dotenv = require("dotenv");
 dotenv.config();
 const port = process.env.PORTAPP || 4000;
 
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
+const contactRouter = require('./routes/contact');
+const routesRouter = require('./routes/routes');
+
 // CORS middleware
-const whiteList = ['http://localhost:8080', 'http://localhost:4000', 'https://nodejs-gmail.herokuapp.com/'];
+const whiteList = ['http://localhost:8080', 'http://localhost:4000', 'https://nodejs-test-gmail.herokuapp.com/'];
 const corsOptions = {
 	origin: function (origin, callback) {
 		if (whiteList.includes(origin) || !origin) { // !origin allows REST tools and server2server interaction
@@ -37,19 +42,24 @@ app.use(history());
 app.use(staticFileMiddleware);
 
 // connection mysql
-const connection = require("./database/dbSql");
-connection.connect();
+// const connection = require("./database/dbSql");
+// connection.connect();
 
 // Routes for all
-require("./routes/auth")(app, connection);
-require("./routes/user")(app, connection);
-require("./routes/contact")(app, connection);
-require("./routes/routes")(app, connection);
+// require("./routes/auth")(app, connection);
+// require("./routes/user")(app, connection);
+// require("./routes/contact")(app, connection);
+// require("./routes/routes")(app, connection);
+
+app.use('/auth', authRouter);
+app.use('/user', userRouter);
+app.use('/contact', contactRouter);
+app.use('/', routesRouter);
 
 app.get('/', (request, response) => {
     response.render(path.join(__dirname + '/../dist/index.html'));
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}.`);
+app.listen(process.env.PORTAPP || 4000, () => {
+    console.log(`Server is running on port: ${process.env.PORTAPP}.`);
 });
