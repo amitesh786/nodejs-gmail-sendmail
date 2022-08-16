@@ -62,7 +62,7 @@
 	import { required, minLength, email } from "vuelidate/lib/validators";
 	import AuthService from '@/services/AuthService';
 
-	// Always use vuex store with actions and getters
+	// use vuex store with actions
 	import { mapActions } from "vuex";
 	
 	export default {
@@ -96,12 +96,12 @@
 
 		methods: {
 			...mapActions({
-				getContactById: 'getContactId',
-				setAddName: 'setAddName',
-				setAddId: 'setAddId',
-				setAddToken: 'setAddToken'
+				getContactId : 'backends/getContactId',
+				setAddName : 'backends/setAddName',
+				setAddId : 'backends/setAddId',
+				setAddToken : 'backends/setAddToken'				
 			}),
-
+			
 			// Vuelidate
 			validateState(name) {
 				const { $dirty, $error } = this.$v.form[name];
@@ -118,7 +118,6 @@
 				};
 
 				// SignIn form
-				// this.$store.dispatch("signIn", payload)
 				AuthService.signIn(payload)
 					.then(response => {
 
@@ -142,8 +141,8 @@
 							ctx.$router.push({ path: '/home' })
 
 							// action to get all contacts
-							if (ctx.$store.state.id != '') {
-								ctx.getContactById(ctx.$store.state.id)
+							if (ctx.$store.state.backends.id != '') {
+								ctx.getContactId(ctx.$store.state.backends.id)
 							}
 
 						} else {

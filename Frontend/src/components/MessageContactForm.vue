@@ -81,10 +81,10 @@ import { mapActions } from 'vuex';
 				enableSuccess: false,
 			};
 		},
+
 		methods: {
 			...mapActions({
-				sendMailPayload: 'sendMail',
-				getContactId: 'getContactId'
+				sendMail : 'backends/sendMail'
 			}),
 
 			onSubmit(e) {
@@ -96,8 +96,10 @@ import { mapActions } from 'vuex';
 				let storeEmails = [];
 				let arrayToString = "";
 
-				if (this.$store.state.contact.length > 0) {
-					this.$store.state.contact.map( el => {
+				// email push all the list of contacts present for this user
+				let contacts = this.$store.state.backends.contact;
+				if (contacts.length > 0) {
+					contacts.map( el => {
 						storeEmails.push(el.email);
 					})
 					arrayToString = storeEmails.toString();
@@ -112,7 +114,7 @@ import { mapActions } from 'vuex';
 				}
 
 				// send mail data to endpoint
-				this.sendMailPayload(payload);
+				this.sendMail(payload);
 				
 				// Reset form field
 				this.email = '';

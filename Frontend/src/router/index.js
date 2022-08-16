@@ -5,8 +5,6 @@ import VueRouter from 'vue-router';
 import Dashboard from "@/components/Dashboard";
 import Login from "@/components/Login";
 
-import AuthStore from "@/store";
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -39,9 +37,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 	const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
-	if (requiresAuth == true && AuthStore.state.token) {
+	if (requiresAuth == true && localStorage.getItem('token')) {
 		next();
-	} else if (requiresAuth == true && AuthStore.state.token == false) {
+	} else if (requiresAuth == true && localStorage.getItem('token') == null) {
 		next({ path: "/login" });
 	} else {
 		next();

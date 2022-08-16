@@ -8,7 +8,7 @@
 
 		<b-card-group columns>
 			<b-card
-				v-for="element in this.$store.state.contact"
+				v-for="element in this.$store.state.backends.contact"
 					:key="element.id"
 					border-variant="info"
 					header=""
@@ -80,15 +80,17 @@
 
 		methods: {
 			...mapActions({
-				putUserById: 'putUserId',
-				getContactById: 'getContactId',
-				deleteUserById: 'deleteUserId'
+				putUserId : 'backends/putUserId', 
+				getContactId: 'backends/getContactId', 
+				deleteUserId: 'backends/deleteUserId' 
 			}),
 
 			setEmail(prevMail) {
 
-				if(this.$store.state.contact.length > 0) {
-					this.$store.state.contact.map(el => {
+				// verify email already exist in a list of contacts
+				let contacts = this.$store.state.backends.contact;
+				if(contacts.length > 0) {
+					contacts.map(el => {
 						if (el.email == this.newEmail[prevMail]) {
 							this.showEmailAlert = true;
 						}
@@ -104,11 +106,11 @@
 						specify : specify
 					};
 					// Modify user id in DB
-					this.putUserById(payload);
+					this.putUserId(payload);
 					
 					// get user id for all contact in DB
-					if (this.$store.state.id != '') {
-						this.getContactById(this.$store.state.id);
+					if (this.$store.state.backends.id != '') {
+						this.getContactId(this.$store.state.backends.id);
 					}
 				}
 			},
@@ -117,19 +119,19 @@
 			deleteContact(mailToDelete) {
 
 				// delete user id for contact in DB
-				this.deleteUserById(mailToDelete);
+				this.deleteUserId(mailToDelete);
 				
 				// get user id for updatecontact in DB
-				if (this.$store.state.id != '') {
-					this.getContactById(this.$store.state.id);
+				if (this.$store.state.backends.id != '') {
+					this.getContactId(this.$store.state.backends.id);
 				}
 			},
 		},
 
 		mounted() {
 			// get user id for update contact in DB
-			if (this.$store.state.id != '') {
-				this.getContactById(this.$store.state.id);
+			if (this.$store.state.backends.id != '') {
+				this.getContactId(this.$store.state.backends.id);
 			}
 		},
 	};

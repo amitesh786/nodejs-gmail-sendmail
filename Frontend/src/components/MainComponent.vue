@@ -67,7 +67,7 @@
 	import ContactList from "./ContactList";
 	import AddContactForm from "./AddContactForm";
 	import MessageContactForm from "./MessageContactForm";
-	import { mapActions } from "vuex";
+	import { mapActions, mapState } from "vuex";
 	
 	export default {
 		name: "Header",
@@ -86,16 +86,21 @@
 			};
 		},
 		computed: {
+			...mapState({
+				name: state => state.backends.name
+			}),
+
 			userName() {
-				let local = this.$store.state.name;
-				return local.charAt(0).toUpperCase() + local.slice(1);
+				let local = this.name;
+				return local != '' ? local.charAt(0).toUpperCase() + local.slice(1) : '';
 			},
 		},
 		methods: {
 			...mapActions({
-				getDeleteToken: 'getDeleteToken',
-				getDeleteContact: 'getDeleteContact'
+				getDeleteToken : 'backends/getDeleteToken', 
+				getDeleteContact: 'backends/getDeleteContact'
 			}),
+
 			deleteToken() {
 				this.getDeleteToken();
 				this.getDeleteContact();
@@ -110,7 +115,7 @@
 	.liens {
 		display: flex;
 		align-items: center;
-		background: darkgreen;
+		background: #369ac2;
 	}
 	.myTab {
 		margin-left: 15vw;
@@ -127,7 +132,7 @@
 		font-style: italic;
 	}
 	.usName {
-		color: rgb(12, 144, 161);
+		color: #369ac2;
 	}
 	.userName{
 		margin-top: 3px;

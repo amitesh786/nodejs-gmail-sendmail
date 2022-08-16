@@ -78,13 +78,13 @@
 				},
 			},
 		},
-
+		
 		methods: {
 			...mapActions({
-				postAddContactById: 'postAddcontact',
-				getContactById: 'getContactId'
+				postAddcontact: 'backends/postAddcontact',
+				getContactId: 'backends/getContactId'
 			}),
-
+			
 			validateState(name) {
 				const { $dirty, $error } = this.$v.form[name];
 				return $dirty ? !$error : null;
@@ -92,11 +92,12 @@
 
 			async onSubmit(e) {
 				e.preventDefault();
-				this.form.id_user = this.$store.state.id;
+				this.form.id_user = this.$store.state.backends.id;
 
-				// Verfiy email already in contacts
-				if(this.$store.state.contact.length > 0) {
-					this.$store.state.contact.map(el => {
+				// Verfiy email already in the list of contacts
+				let contacts = this.$store.state.backends.contact;
+				if(contacts.length > 0) {
+					contacts.map(el => {
 						if (el.email == this.form.email) {
 							this.showEmailAlert = true;
 						}
@@ -112,11 +113,11 @@
 					};
 
 					// Add new contact in DB
-					this.postAddContactById(payload);
+					this.postAddcontact(payload);
 
 					// action to get all contacts
-					if (this.$store.state.id != '') {
-						this.getContactById(this.$store.state.id);
+					if (this.$store.state.backends.id != '') {
+						this.getContactId(this.$store.state.backends.id);
 					}
 
 					e.target.reset();
@@ -137,8 +138,8 @@
 
 		async mounted() {
 			// action to get all contacts
-			if (this.$store.state.id != '') {
-				this.getContactById(this.$store.state.id);
+			if (this.$store.state.backends.id != '') {
+				this.getContactId(this.$store.state.backends.id);
 			}
 		},
 	};

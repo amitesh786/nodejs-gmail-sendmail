@@ -134,7 +134,6 @@
 				};
 				
 				// SignUp form
-				// this.$store.dispatch("signUp", payload)
 				AuthService.signUp(payload)
 					.then(response => {
 
