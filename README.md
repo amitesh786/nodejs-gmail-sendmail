@@ -8,14 +8,6 @@ Web application using Vue.js, Node.js and MySQL2.
 	+ cd `Backend`
 	+ npm run `dev`
 
-+ Share the layout, it will look like this.
-+ Layouts:
-![layout_1](./layouts/layout_1.png)
-![layout_2](./layouts/layout_2.png)
-![layout_3](./layouts/layout_3.png)
-![layout_4](./layouts/layout_4.png)
-![layout_5](./layouts/layout_5.png)
-
 ## Getting Started
 
 ** Run 2 sub-projects(Frontend and Backend) using this bash command **
@@ -55,3 +47,11 @@ npm run dev
 + Run this command to test the scenario
 + alligator-test folder contain test cases
 + ```npm run test``` - this command, it will update everytime whenever test.js modify
+
++ Share the layout, it will look like this.
++ Layouts:
+![layout_1](./layouts/layout_1.png)
+![layout_2](./layouts/layout_2.png)
+![layout_3](./layouts/layout_3.png)
+![layout_4](./layouts/layout_4.png)
+![layout_5](./layouts/layout_5.png)

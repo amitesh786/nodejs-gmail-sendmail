@@ -54,9 +54,6 @@ export default {
 	getContactId: async ({state, commit}, id) => {
 		let header = headers(state.token);
 
-		console.log(process.env.BASE_URL);
-		console.log(process.env.VUE_APP_BASE_URL);
-
 		return await axios.get(`${process.env.VUE_APP_BASE_URL}/contact/${id}`, {headers : header})
 			.then( (response) => {
 				console.log("Get contact by Id getContactId", response.data);

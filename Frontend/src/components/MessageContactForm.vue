@@ -6,7 +6,7 @@
 				<b-alert v-model="enableSuccess" variant="success" dismissible>
 					<b-icon icon="emoji-smile" variant="success" scale="1.3">
 					</b-icon>&nbsp;Message sent successfully...!!!
-					<a href="/home">New message</a>
+					<a @click="newMessage"> New message</a>
 				</b-alert>
 
 				<form @submit="onSubmit" v-if="show" >
@@ -122,6 +122,11 @@ import { mapActions } from 'vuex';
 				this.message = '',
 				this.attachmentFile = '';
 			},
+
+			newMessage() {
+				this.show = true;
+				this.enableSuccess = false;
+			}
 		},
 	};
 </script>
