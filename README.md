@@ -1,5 +1,5 @@
 # Gmail Webapp
-Web application using Vue.js, Node.js and MySQL2.
+Web application using Vue.js, Node.js.
 
 + How to run the application
 	+ cd `Frontend`
