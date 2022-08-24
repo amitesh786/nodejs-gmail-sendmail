@@ -1,0 +1,46 @@
+version: '3.0'
+
+services:
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: ./docker-config/.env
+    volumes:
+      - "./src/database/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+    environment:
+      - MYSQLDB_HOST=($${MYSQLDB_HOST})
+      - MYSQLDB_USER=($${MYSQLDB_USER})
+      - MYSQL_ROOT_PASSWORD=($${MYSQLDB_ROOT_PASSWORD})
+      - MYSQL_DATABASE=($${MYSQLDB_DATABASE})
+    ports:
+      - "3307:3306"
+    # volumes:
+    #   - db:/var/lib/mysql
+  api:
+    depends_on:
+      - mysqldb
+    build: ./
+    restart: unless-stopped
+    env_file: ./docker-config/.env
+    ports:
+      - "4000:4000"
+    environment:
+      - DB_HOST=($${MYSQLDB_HOST})
+      - DB_USER=($${MYSQLDB_USER})
+      - DB_PASSWORD=($${MYSQLDB_ROOT_PASSWORD})
+      - DB_NAME=($${MYSQLDB_DATABASE})
+      - DB_PORT=($${MYSQLDB_DOCKER_PORT})
+    stdin_open: true
+    tty: true
+  client:
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile
+      context: ../Frontend
+    ports:
+      - "8080:8080"
+    volumes:
+      - /app/node_modules
+      - ../Frontend:/app
+volumes: 
+  db:

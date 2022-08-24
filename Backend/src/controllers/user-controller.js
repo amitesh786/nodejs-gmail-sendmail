@@ -1,19 +1,22 @@
-const executeQuery  = require('../database/dbConnection');
+const connection  = require('../database/dbConnection');
 
 const deleteEmail = (req, res) => {
-	let email = req.params.email;
-	let usersMailToDelete = "DELETE FROM sql8512646.contacts where email = ?";
 	
-	executeQuery(usersMailToDelete, [email], (err, results) => {
-		if (err) throw err;
-		
-		// handle unknown user
-		if (results.affectedRows > 0) {
-			console.log(results.affectedRows);
-			res.send("Users removed");
-		} else {
-			res.send("Unknown users");
-		}
+	connection.getConnection((err, connection) => {
+        if(err) throw err;
+		let email = req.params.email;
+	
+		connection.query(`DELETE FROM ${process.env.DATABASE_USER}.contacts where email = ?`, [email], (err, results) => {
+			if (err) throw err;
+			connection.release(); // return the connection to pool
+			// handle unknown user
+			if (results.affectedRows > 0) {
+				console.log(results.affectedRows);
+				res.send("Users removed");
+			} else {
+				res.send("Unknown users");
+			}
+		});
 	});
 };
 
@@ -24,11 +27,14 @@ const modifyEmail = (req, res) => {
 	console.log("SPE", payload);
 	console.log("@", email);
 
-	let updateEmail = "UPDATE sql8512646.contacts SET email = " + payload + "WHERE email = " + email;
+	connection.getConnection((err, connection) => {
+        if(err) throw err;
 
-	executeQuery(updateEmail, (err, results) => {
-		if (err) throw err;
-		res.send(results);
+		connection.query(`UPDATE ${process.env.DATABASE_USER}.contacts SET email = ${payload} WHERE email = ${email}`, (err, results) => {
+			if (err) throw err;
+			connection.release(); // return the connection to pool
+			res.send(results);
+		});	
 	});
 };
 

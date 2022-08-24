@@ -1,4 +1,4 @@
-const executeQuery  = require('../database/dbConnection');
+const connection  = require('../database/dbConnection');
 
 const addNewContact = (req, res) => {
 
@@ -7,11 +7,14 @@ const addNewContact = (req, res) => {
 	let email = req.body.email.toLowerCase();
 	let id_user = req.body.id_user;
 
-		
 	let sql = `insert into contacts (name, email, id_user) VALUES ('${firstCharUpperCase}', '${email}', '${id_user}')`;
-	executeQuery(sql, (err, results) => {
-		if (err) throw err;
-		res.status(200).send(results);
+	connection.getConnection((err, connection) => {
+        if(err) throw err;
+		connection.query(sql, (err, results) => {
+			if (err) throw err;
+			connection.release(); // return the connection to pool
+			res.status(200).send(results);
+		});
 	});
 };
 
@@ -22,9 +25,13 @@ const contactId = (req, res) => {
 	from users inner join contacts on users.id = 
 	contacts.id_user where users.id = ${userId}`;
 
-	executeQuery(getAll, (err, results) => {
-		if (err) throw err;
-		res.send(results);
+	connection.getConnection((err, connection) => {
+        if(err) throw err;
+		connection.query(getAll, (err, results) => {
+			if (err) throw err;
+			connection.release(); // return the connection to pool
+			res.send(results);
+		});
 	});
 };
 
