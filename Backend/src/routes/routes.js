@@ -7,7 +7,7 @@ const appRouter = async (app, connection) => {
 
 	// get all database with endpoint /all
 	app.get("/all", (req, res) => {
-		let getAll = "SELECT * FROM sql8512646.users";
+		let getAll = `SELECT * FROM ${process.env.DATABASE_USER}.users`;
 
 		connection.query(getAll, (err, results) => {
 			if (err) throw err;
@@ -17,7 +17,7 @@ const appRouter = async (app, connection) => {
 	
 	// get all emails endpoint /emails
 	app.get("/emails", (req, res) => {
-		let getAllEmail = "SELECT email FROM sql8512646.users";
+		let getAllEmail = `SELECT email FROM ${process.env.DATABASE_USER}.users`;
 		
 		connection.query(getAllEmail, (err, results) => {
 		if (err) throw err;
@@ -27,7 +27,7 @@ const appRouter = async (app, connection) => {
 
 	// get all names endpoint /names
 	app.get("/names", (req, res) => {
-		let getAllNames = "SELECT name FROM sql8512646.users";
+		let getAllNames = `SELECT name FROM ${process.env.DATABASE_USER}.users`;
 		
 		connection.query(getAllNames, (err, results) => {
 			if (err) throw err;
@@ -69,7 +69,7 @@ const appRouter = async (app, connection) => {
 
 		// Mail options
 		let mailOptions = {
-			from: process.env.SENDER_EMAIL,
+			from: process.env.EMAIL_USERNAME,
 			to: recipient,
 			subject: mailSubject,
 			text: mailBody,

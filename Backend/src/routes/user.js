@@ -8,7 +8,7 @@ const appRouter = async (app, connection) => {
 	await app.delete("/users/:email", auth, (req, res) => {
 		
 		let email = req.params.email;
-		let usersMailToDelete = "DELETE FROM sql8512646.contacts where email = ?";
+		let usersMailToDelete = `DELETE FROM ${process.env.DATABASE_USER}.contacts where email = ?`;
 		
 		connection.query(usersMailToDelete, [email], (err, results) => {
 			if (err) throw err;
@@ -32,7 +32,7 @@ const appRouter = async (app, connection) => {
 		console.log("SPE", payload);
 		console.log("@", email);
 
-		let updateEmail = "UPDATE sql8512646.contacts SET email = " + payload + "WHERE email = " + email;
+		let updateEmail = `UPDATE ${process.env.DATABASE_USER}.contacts SET email = ${payload} WHERE email = ${email}`;
 
 		connection.query(updateEmail, (err, results) => {
 			if (err) throw err;

@@ -4,8 +4,7 @@ async function poolPromise() {
 	
 		const pool = mysql.createPool({
 			host: process.env.DATABASE_HOST,
-			server: process.env.DATABASE_SERVER,
-			port: process.env.PORT,
+			port: process.env.DATABASE_PORT,
 			user: process.env.DATABASE_USER,
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,

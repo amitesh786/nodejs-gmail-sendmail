@@ -10,10 +10,11 @@ const dotenv = require("dotenv");
 
 // Config env
 dotenv.config();
-const port = process.env.PORTAPP || 4000;
+
+const port = process.env.PORT || 4000;
 
 // CORS middleware
-const whiteList = ['http://localhost:8080', 'http://localhost:4000', 'https://nodejs-gmail.herokuapp.com/'];
+const whiteList = ['http://localhost:8080', 'http://localhost:4000'];
 const corsOptions = {
 	origin: function (origin, callback) {
 		if (whiteList.includes(origin) || !origin) { // !origin allows REST tools and server2server interaction
@@ -26,7 +27,7 @@ const corsOptions = {
 	credentials: true
 };
 
-const staticFileMiddleware = express.static(path.join(__dirname + '/../dist'));
+const staticFileMiddleware = express.static(path.join(__dirname + '/../public/dist'));
 
 app.use(cors(corsOptions));
 
@@ -46,8 +47,9 @@ require("./routes/user")(app, connection);
 require("./routes/contact")(app, connection);
 require("./routes/routes")(app, connection);
 
-app.get('/', (request, response) => {
-    response.render(path.join(__dirname + '/../dist/index.html'));
+app.get('/', (req, res) => {
+    // res.render(path.join(__dirname + '/../dist/index.html'));
+	res.sendFile('index.html', { root: path.join(__dirname, '../public/dist/') });
 });
 
 app.listen(port, () => {

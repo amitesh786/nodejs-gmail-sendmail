@@ -1,11 +1,11 @@
 var mysql = require("mysql2");
 
 const connection = mysql.createConnection({
-	host: "sql8.freesqldatabase.com",
-	user: "sql8512646",
-	password: "73md9XEk5U",
-	database: "sql8512646",
-	port: "3306",
+	host: process.env.DATABASE_HOST,
+	user: process.env.DATABASE_USER,
+	password: process.env.DATABASE_PASSWORD,
+	database: process.env.DATABASE_NAME,
+	port: process.env.DATABASE_PORT,
 });
 
 connection.connect(function(err) {
