@@ -11,6 +11,7 @@ Web application using Vue.js, Node.js, Docker
 	+ copy `dist` folder to `Backend`
 	+ cd `Backend`
 	+ ```npm run dev```
+	+ open the browser ```localhost:4000``` - server is running on port 4000
 
 + This is the second way to run the server using docker command (cd Backend)
 
@@ -37,8 +38,9 @@ Web application using Vue.js, Node.js, Docker
 ```bash
 npm run dev 
 ```
-
-+ ```npm run dev``` - this command, it will update everytime whenever the file modify
+	+ ```npm run dev``` - this command, it will update everytime whenever the file modify
+	+ Frontend - open the browser ```localhost:8080```
+	+ Backend server is running on port 4000
 
 ## Routes
 
